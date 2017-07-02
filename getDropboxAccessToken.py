@@ -105,7 +105,7 @@ print ""
 
 app_key = raw_input("1.) Enter your 'App key': ").strip()
 app_secret = raw_input("2.) Enter your 'App secret': ").strip()
-authorize_url = "https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=" + app_key
+authorize_url = "https://www.dropbox.com/oauth2/authorize?response_type=code&client_id=" + app_key
 
 print "3.) Now open this url and confirm the requested permission."
 print ""
@@ -121,7 +121,7 @@ try:
           "grant_type"    : "authorization_code",
           "client_id"     : app_key,
           "client_secret" : app_secret}
-  result = ar.post("https://api.dropbox.com/1/oauth2/token", args) 
+  result = ar.post("https://api.dropbox.com/oauth2/token", args) 
   access_token = result['access_token'] 
   ar.headers = {'Authorization' : 'Bearer ' + access_token}
 except Exception, e:
@@ -135,7 +135,7 @@ print ""
 
 # Validate the access_token and show some user informations.
 try:
-  account_info = ar.get('https://api.dropbox.com/1/account/info')
+  account_info = ar.get('https://api.dropbox.com/2/users/get_current_account')
 except Exception, e:
   print "Could not validate the new access token. (" + str(e) + ")\n"
   sys.exit(-1)
